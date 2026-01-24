@@ -12,24 +12,36 @@ export default function About() {
           </p>
         </div>
         <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
-            <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
                 <div className="flex flex-col items-center text-center p-6 bg-slate-50 rounded-2xl shadow-sm">
-                    <img className="h-24 w-24 rounded-full object-cover mb-4" src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=200&auto=format&fit=crop" alt="CEO" />
-                    <h3 className="text-lg font-bold text-gray-900">Ahmed Benali</h3>
+                    <img className="h-32 w-32 rounded-full object-cover mb-4 ring-4 ring-emerald-500" src="/celestin.png" alt="Celestin" />
+                    <h3 className="text-lg font-bold text-gray-900">Celestin</h3>
                     <p className="text-sm text-emerald-600">CEO & Founder</p>
-                    <p className="mt-2 text-gray-600">Visionary leader with 15 years in PropTech.</p>
+                    <p className="mt-2 text-gray-600">Visionary leader driving the future of PropTech.</p>
                 </div>
                 <div className="flex flex-col items-center text-center p-6 bg-slate-50 rounded-2xl shadow-sm">
-                    <img className="h-24 w-24 rounded-full object-cover mb-4" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop" alt="CTO" />
-                    <h3 className="text-lg font-bold text-gray-900">Layla Idrissi</h3>
+                    <div className="h-24 w-24 rounded-full bg-emerald-100 flex items-center justify-center mb-4 text-emerald-600 font-bold text-xl">D</div>
+                    <h3 className="text-lg font-bold text-gray-900">Desange</h3>
                     <p className="text-sm text-emerald-600">Head of A.I.</p>
-                    <p className="mt-2 text-gray-600">Machine Learning expert specializing in predictive models.</p>
+                    <p className="mt-2 text-gray-600">Leading our machine learning innovations.</p>
                 </div>
                 <div className="flex flex-col items-center text-center p-6 bg-slate-50 rounded-2xl shadow-sm">
-                    <img className="h-24 w-24 rounded-full object-cover mb-4" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200&auto=format&fit=crop" alt="COO" />
-                    <h3 className="text-lg font-bold text-gray-900">Omar Tazi</h3>
+                     <div className="h-24 w-24 rounded-full bg-emerald-100 flex items-center justify-center mb-4 text-emerald-600 font-bold text-xl">R</div>
+                    <h3 className="text-lg font-bold text-gray-900">Rim</h3>
                     <p className="text-sm text-emerald-600">Operations Director</p>
-                    <p className="mt-2 text-gray-600">Ensuring seamless experiences for thousands of users.</p>
+                    <p className="mt-2 text-gray-600">Ensuring seamless experiences for our users.</p>
+                </div>
+                <div className="flex flex-col items-center text-center p-6 bg-slate-50 rounded-2xl shadow-sm">
+                     <div className="h-24 w-24 rounded-full bg-emerald-100 flex items-center justify-center mb-4 text-emerald-600 font-bold text-xl">M</div>
+                    <h3 className="text-lg font-bold text-gray-900">Meriam</h3>
+                    <p className="text-sm text-emerald-600">Chief Marketing Officer</p>
+                    <p className="mt-2 text-gray-600">Connecting LuminaStay with the world.</p>
+                </div>
+                <div className="flex flex-col items-center text-center p-6 bg-slate-50 rounded-2xl shadow-sm">
+                     <div className="h-24 w-24 rounded-full bg-emerald-100 flex items-center justify-center mb-4 text-emerald-600 font-bold text-xl">A</div>
+                    <h3 className="text-lg font-bold text-gray-900">Atsu</h3>
+                    <p className="text-sm text-emerald-600">Chief Technology Officer</p>
+                    <p className="mt-2 text-gray-600">Architecting our scalable infrastructure.</p>
                 </div>
             </div>
         </div>

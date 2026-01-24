@@ -45,7 +45,9 @@ export default function Navbar() {
               key={item.name}
               href={item.href}
               className={`text-sm font-semibold leading-6 ${
-                pathname === item.href ? "text-emerald-600" : "text-gray-900 hover:text-emerald-500"
+                pathname === item.href 
+                  ? "text-emerald-500" 
+                  : pathname === "/" ? "text-white hover:text-emerald-300" : "text-gray-900 hover:text-emerald-600"
               }`}
             >
               {item.name}
@@ -53,7 +55,7 @@ export default function Navbar() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-4">
-          <Link href="/auth" className="text-sm font-semibold leading-6 text-gray-900 my-auto">
+          <Link href="/auth" className={`text-sm font-semibold leading-6 my-auto ${pathname === "/" ? "text-white hover:text-emerald-300" : "text-gray-900 hover:text-emerald-600"}`}>
             Log in <span aria-hidden="true">&rarr;</span>
           </Link>
            <Link
