@@ -1,8 +1,10 @@
-
 fastapi
 uvicorn
 pandas
 scikit-learn
 joblib
-numpy
-matplot
+python-multipart
+sqlalchemy
+passlib[bcrypt]
+python-jose[cryptography]
+pydantic

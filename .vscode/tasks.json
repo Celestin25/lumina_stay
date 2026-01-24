@@ -1,0 +1,27 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Install Backend dependencies",
+            "type": "shell",
+            "command": "pip install -r requirements.txt",
+            "options": {
+                "cwd": "${workspaceFolder}/backend"
+            },
+            "presentation": {
+                "reveal": "always"
+            }
+        },
+        {
+            "label": "Install Frontend dependencies",
+            "type": "shell",
+            "command": "npm install",
+            "options": {
+                "cwd": "${workspaceFolder}/frontend"
+            },
+            "presentation": {
+                "reveal": "always"
+            }
+        }
+    ]
+}

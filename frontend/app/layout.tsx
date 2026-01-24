@@ -1,14 +1,15 @@
 
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Outfit } from "next/font/google"; // Changed font to Outfit for premium look
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
-const inter = Inter({ subsets: ["latin"] });
+const outfit = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "LuminaStay Morocco",
-  description: "AI-Powered Real Estate in Morocco",
+  title: "LuminaStay Morocco | Premium Real Estate",
+  description: "AI-Powered Real Estate Analytics & Booking in Morocco",
 };
 
 export default function RootLayout({
@@ -17,12 +18,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Navbar />
-        <main className="min-h-screen bg-slate-50 text-slate-900">
-            {children}
-        </main>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${outfit.className} bg-slate-50 text-slate-900 antialiased`}>
+        <div className="flex flex-col min-h-screen">
+            <Navbar />
+            <main className="flex-grow">
+                {children}
+            </main>
+            <Footer />
+        </div>
       </body>
     </html>
   );
