@@ -15,7 +15,8 @@ from database import engine, get_db
 # Initialize DB Tables
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="LuminaStay API", description="API for Morocco Housing Price Prediction & Real Estate")
+app = FastAPI(title="LuminaStay API",
+              description="API for Morocco Housing Price Prediction & Real Estate")
 
 # CORS
 app.add_middleware(
@@ -30,6 +31,7 @@ app.add_middleware(
 MODEL_PATH = "model.pkl"
 model = None
 
+
 @app.on_event("startup")
 def load_model():
     global model
@@ -39,18 +41,22 @@ def load_model():
     else:
         print("Warning: model.pkl not found. Predictions will fail.")
 
+
 # --- Security & Auth Config ---
-SECRET_KEY = "lumina_stay_secret_key_morocco_2024" # In prod, use env var
+SECRET_KEY = "lumina_stay_secret_key_morocco_2024"  # In prod, use env var
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
+
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
+
 def get_password_hash(password):
     return pwd_context.hash(password)
+
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
@@ -63,6 +69,8 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     return encoded_jwt
 
 # --- Data Models ---
+
+
 class PropertyFeatures(BaseModel):
     City: str
     Neighborhood: str
@@ -76,19 +84,23 @@ class PropertyFeatures(BaseModel):
     Latitude: float
     Longitude: float
 
+
 class PredictionResponse(BaseModel):
     predicted_price: float
     currency: str = "MAD"
+
 
 class UserCreate(BaseModel):
     username: str
     email: str
     password: str
-    role: str = "user" # user, admin, superadmin
+    role: str = "user"  # user, admin, superadmin
+
 
 class UserLogin(BaseModel):
     username: str
     password: str
+
 
 class Token(BaseModel):
     access_token: str
@@ -96,25 +108,31 @@ class Token(BaseModel):
     user_role: str
     username: str
 
+
 class PaymentRequest(BaseModel):
     amount: float
     currency: str
-    method: str # card, paypal
+    method: str  # card, paypal
     user_id: int
 
 # --- Endpoints ---
+
 
 @app.get("/")
 def home():
     return {"message": "Welcome to LuminaStay API (Morocco Edition)"}
 
 # Auth Endpoints
+
+
 @app.post("/auth/register", response_model=Token)
 def register(user: UserCreate, db: Session = Depends(get_db)):
-    db_user = db.query(models.User).filter(models.User.username == user.username).first()
+    db_user = db.query(models.User).filter(
+        models.User.username == user.username).first()
     if db_user:
-        raise HTTPException(status_code=400, detail="Username already registered")
-    
+        raise HTTPException(
+            status_code=400, detail="Username already registered")
+
     hashed_password = get_password_hash(user.password)
     new_user = models.User(
         username=user.username,
@@ -125,54 +143,63 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
-    
-    access_token = create_access_token(data={"sub": new_user.username, "role": new_user.role})
+
+    access_token = create_access_token(
+        data={"sub": new_user.username, "role": new_user.role})
     return {
-        "access_token": access_token, 
-        "token_type": "bearer", 
+        "access_token": access_token,
+        "token_type": "bearer",
         "user_role": new_user.role,
         "username": new_user.username
     }
 
+
 @app.post("/auth/login", response_model=Token)
 def login(creds: UserLogin, db: Session = Depends(get_db)):
-    user = db.query(models.User).filter(models.User.username == creds.username).first()
+    user = db.query(models.User).filter(
+        models.User.username == creds.username).first()
     if not user or not verify_password(creds.password, user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid credentials")
-    
-    access_token = create_access_token(data={"sub": user.username, "role": user.role})
+
+    access_token = create_access_token(
+        data={"sub": user.username, "role": user.role})
     return {
-        "access_token": access_token, 
-        "token_type": "bearer", 
+        "access_token": access_token,
+        "token_type": "bearer",
         "user_role": user.role,
         "username": user.username
     }
 
 # Prediction Endpoint
+
+
 @app.post("/predict", response_model=PredictionResponse)
 def predict_price(features: PropertyFeatures):
     if not model:
         raise HTTPException(status_code=503, detail="Model not loaded")
-    
+
     # Create DataFrame from input
     input_data = pd.DataFrame([features.dict()])
-    
+
     try:
         prediction = model.predict(input_data)[0]
         return {"predicted_price": round(prediction, 2)}
     except Exception as e:
-        raise HTTPException(status_code=400, detail=f"Prediction error: {str(e)}")
+        raise HTTPException(
+            status_code=400, detail=f"Prediction error: {str(e)}")
 
 # Payment Endpoint (Mock)
+
+
 @app.post("/payment/process")
 def process_payment(payment: PaymentRequest):
     # Simulate processing time
     import time
     time.sleep(1)
-    
+
     if payment.amount <= 0:
         raise HTTPException(status_code=400, detail="Invalid amount")
-        
+
     return {
         "status": "success",
         "transaction_id": f"txn_morocco_{int(time.time())}",
