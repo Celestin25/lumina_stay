@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 function AuthContent() {
@@ -9,9 +9,13 @@ function AuthContent() {
   const mode = searchParams.get("mode") || "login";
   const [isLogin, setIsLogin] = useState(mode === "login");
   const [role, setRole] = useState("user");
-  const [formData, setFormData] = useState({ username: "", email: "", password: "" });
+  const [formData, setFormData] = useState({ username: "celestin", email: "", password: "celestin" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    setIsLogin(mode === "login");
+  }, [mode]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

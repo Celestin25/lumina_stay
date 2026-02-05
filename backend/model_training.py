@@ -17,7 +17,7 @@ X = df.drop(columns=["Price_MAD"])
 y = df["Price_MAD"]
 
 # Preprocessing Pipeline
-categorical_features = ["City", "Neighborhood", "Property_Type"]
+categorical_features = ["City", "Neighborhood", "Property_Type", "Listing_Type"]
 numerical_features = ["Bedrooms", "Bathrooms", "Size_m2", "Has_Pool", "Has_Garden", "Is_Furnished", "Latitude", "Longitude"]
 
 preprocessor = ColumnTransformer(

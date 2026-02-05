@@ -9,6 +9,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 const navigation = [
   { name: "Home", href: "/" },
   { name: "Predict Price", href: "/predict" },
+  { name: "Market Analysis", href: "/analysis" },
   { name: "Dashboard", href: "/dashboard" },
   { name: "About Us", href: "/about" },
   { name: "Contact", href: "/contact" },
@@ -17,6 +18,9 @@ const navigation = [
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+
+  // Hide Navbar on admin pages
+  if (pathname?.toLowerCase().startsWith("/admin")) return null;
 
   return (
     <header className="absolute inset-x-0 top-0 z-50">

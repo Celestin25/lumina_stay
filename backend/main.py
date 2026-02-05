@@ -72,6 +72,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
 
 
 class PropertyFeatures(BaseModel):
+    Listing_Type: str # Rent or Buy
     City: str
     Neighborhood: str
     Property_Type: str
@@ -169,6 +170,35 @@ def login(creds: UserLogin, db: Session = Depends(get_db)):
         "user_role": user.role,
         "username": user.username
     }
+
+# Analysis Endpoint
+@app.get("/analysis")
+def get_market_analysis():
+    try:
+        df = pd.read_csv("morocco_housing.csv")
+        
+        # 1. Average Price by City and Listing Type
+        avg_price = df.groupby(["City", "Listing_Type"])["Price_MAD"].mean().reset_index()
+        
+        # Transform to nested dict for easier frontend consumption
+        price_stats = {}
+        for city in df["City"].unique():
+            price_stats[city] = {}
+            for l_type in ["Rent", "Buy"]:
+                val = avg_price[(avg_price["City"] == city) & (avg_price["Listing_Type"] == l_type)]["Price_MAD"].values
+                price_stats[city][l_type] = int(val[0]) if len(val) > 0 else 0
+                
+        # 2. Price Distribution (Boxplot data approximation - Min, Max, Median)
+        # We'll just return raw counts for Property Types for now
+        prop_counts = df["Property_Type"].value_counts().to_dict()
+        
+        return {
+            "average_prices": price_stats,
+            "property_counts": prop_counts,
+            "total_listings": len(df)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Analysis error: {str(e)}")
 
 # Prediction Endpoint
 

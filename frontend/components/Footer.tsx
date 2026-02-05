@@ -1,7 +1,14 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  if (pathname?.startsWith("/admin")) return null;
+
   return (
     <footer className="bg-slate-900 text-white" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">

@@ -19,10 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${outfit.className} bg-slate-50 text-slate-900 antialiased`}>
+      <body className={`${outfit.className} bg-slate-50 text-slate-900 antialiased`} suppressHydrationWarning={true}>
         <div className="flex flex-col min-h-screen">
             <Navbar />
-            <main className="flex-grow">
+            <main className="flex-grow pt-24">
                 {children}
             </main>
             <Footer />

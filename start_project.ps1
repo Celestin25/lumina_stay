@@ -8,4 +8,4 @@ Start-Process powershell -ArgumentList "cd frontend; npm run dev"
 
 Write-Host "LuminaStay is running!"
 Write-Host "Frontend: http://localhost:3000"
-Write-Host "Backend: http://localhost:8000/docs"
+Write-Host "Backend:http://localhost:8000/docs"
